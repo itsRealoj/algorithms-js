@@ -1,15 +1,24 @@
-function ceasarCipher(string, num) {
- let stringArr = string.split('');
- let allChars = 'abcdefghijklmnopqrstuvwxyz'.split('');
+function ceasarCipher(str, num) {
+ let lowerCaseString = str.toLowerCase();
+ let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+ let newString = '';
 
-//creating pure string
- let hashedString = [];
- stringArr.forEach(char => {
-  if(allChars.indexOf(char) > -1) {
-   let newCharIndex = allChars.indexOf(char) - num;
-   hashedString.push(allChars[newCharIndex])
+ for(let i = 0; i < lowerCaseString.length; i++) {
+  let currentLetter = lowerCaseString[i];
+  if(currentLetter === '') {
+   newString += currentLetter;
+   continue;
   }
- })
-console.log(hashedString);
+  let currentIndex = alphabet.indexOf(currentLetter); 
+  let newIndex = currentIndex + num;
+  if(newIndex > 25) newIndex = newIndex - 26;
+  if(newIndex < 0) newIndex = 26 + newIndex;
+  if(str[i] === str[i].toUpperCase()) {
+   newString += alphabet[newIndex].toUpperCase();
+  }
+  else newString += alphabet[newIndex];
+ }
+
+ return newString;
 }
-ceasarCipher('noo keeper', 1);
+ceasarCipher('password is m', 5);
